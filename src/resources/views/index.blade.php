@@ -6,13 +6,18 @@
 
 @section('content')
 <div class="todo__alert">
-    @if (count($errors) > 0)
-    <div class="todo__alert--danger">
-        ・ Todoを入力してください
-    </div>
-    @else
+    @if (session('message'))
     <div class="todo__alert--success">
-        Todoを作成しました
+        {{ session('message')}}
+    </div>
+    @endif
+    @if ($errors->any())
+    <div class="todo__alert--danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
     </div>
     @endif
 </div>
@@ -35,11 +40,11 @@
       @foreach ($todos as $todo)
       <tr class="todo-table__row">
         <td class="todo-table__item">
-          <form class="update-form" action="/todos/update?id{{$todo->id}}" method="post">
+          <form class="update-form" action="/todos/update?id={{$todo->id}}" method="post">
             @method('PATCH')
             @csrf
             <div class="update-form__item">
-              <input class="update-form__item-input">{{ $todo['content'] }}</input>
+              <input class="update-form__item-input" name = "content" value = "{{ $todo['content'] }}">
             </div>
             <div class="update-form__button">
               <button class="update-form__button-submit" type="submit">更新</button>
@@ -47,10 +52,11 @@
           </form>
         </td>
         <td class="todo-table__item">
-          <form class="delete-form" action="/todos/delete" method="post">
+          <form class="delete-form" action="/todos/delete?id={{$todo->id}}" method="post">
             @method('DELETE')
             @csrf
             <div class="delete-form__button">
+              <input type="hidden" name="id" value="{{ $todo['id'] }}">
               <button class="delete-form__button-submit" type="submit">削除</button>
             </div>
           </form>
