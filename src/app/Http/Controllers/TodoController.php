@@ -39,7 +39,9 @@ class TodoController extends Controller
     public function search (Request $request) {
         $todos = Todo::with('category')->CategorySearch($request->category_id)->KeywordSearch($request->keyword)->get();
         $categories = Category::all();
+        $keyword = $request->keyword;
+        $category_id = $request->category_id;
 
-        return view('index', compact('todos', 'categories','keyword'));
+        return view('index', compact('todos', 'categories','category_id','keyword'));
     }
 }

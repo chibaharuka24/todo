@@ -47,9 +47,8 @@
     <div class="search-form__item">
       <input class="search-form__item-input" type="text" name="keyword" value="{{ $keyword ?? '' }}">
       <select class="search-form__item-select" name="category_id">
-        <selected value="">{{ $category['name'] }}</selected>
         @foreach ($categories as $category)
-        <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+          <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
         @endforeach
       </select>
     </div>
@@ -73,14 +72,18 @@
             @csrf
             <div class="update-form__item">
               <input class="update-form__item-input" name = "content" value = "{{ $todo['content'] }}" />
-              <input type="hidden" name="id" value="{{ $todo['id'] }}" />
+              <input type="hidden" name="category_id" value="{{ $todo['id'] }}" />
             </div>
             <div class="update-form__item">
               <select class="update-form__item-select">
-                <option value="">{{ $category['name'] }}</option>
-                @foreach ($categories as $category)
-                  <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
-                @endforeach
+              @foreach ($categories as $category)
+              <?php
+              if (($todo->category_id ?? '' ) == $category['id']) {
+                $isSelected = ' selected';
+              }
+              ?>
+                <option value="{{ $category['id'] }}{{ $isSelected }}">{{ $category['name'] }}</option>
+              @endforeach
               </select>
             </div>
             <div class="update-form__button">

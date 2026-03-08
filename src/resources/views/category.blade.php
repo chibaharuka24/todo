@@ -44,7 +44,7 @@
             @method('PATCH')
             @csrf
             <div class="update-form__item">
-              <input class="update-form__item-input" type="text" value="{{ $category['name'] }}">
+              <input class="update-form__item-input" type="text" name="name" value="{{ $category['name'] }}">
             </div>
             <div class="update-form__button">
               <button class="update-form__button-submit" type="submit">更新</button>
