@@ -72,17 +72,17 @@
             @csrf
             <div class="update-form__item">
               <input class="update-form__item-input" name = "content" value = "{{ $todo['content'] }}" />
-              <input type="hidden" name="category_id" value="{{ $todo['id'] }}" />
             </div>
             <div class="update-form__item">
-              <select class="update-form__item-select">
+              <select class="update-form__item-select"name="category_id">
               @foreach ($categories as $category)
               <?php
+              $isSelected = '';
               if (($todo->category_id ?? '' ) == $category['id']) {
                 $isSelected = ' selected';
               }
               ?>
-                <option value="{{ $category['id'] }}{{ $isSelected }}">{{ $category['name'] }}</option>
+                <option value="{{ $category['id'] }}"{{ $isSelected }}>{{ $category['name'] }}</option>
               @endforeach
               </select>
             </div>

@@ -126,6 +126,11 @@
     font-size: 13px;
 }
 
+.update-form__item-select {
+    border: none;
+    appearance: none;
+}
+
 .update-form__button {
     width: 50px;
 }
